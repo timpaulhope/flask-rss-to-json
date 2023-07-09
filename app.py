@@ -33,12 +33,12 @@ class JsonOut(Resource):
 def update_feeds():
     """Update the RSS feeds periodically."""
     global df_out
+    df_row = []
     for source, attributes in target_feeds.items():
         response = get_source(attributes["feed_url"])
         data_dict = xmltodict.parse(response.text)
         articles = data_dict["rss"]["channel"]["item"]
 
-        df_row = []
         for i in range(n_results):
             article = articles[i]
             title = article["title"]
@@ -46,7 +46,8 @@ def update_feeds():
             img = attributes["image"]
             df_row.append({'title': title, 'link': link, 'image': img})
 
-        df_out[source] = df_row
+    df_out['rss'] = sorted(df_row, key=lambda x: x['title'])
+
 
 if __name__ == "__main__":
     config = load_configuration('config.yaml')
