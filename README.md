@@ -55,7 +55,7 @@ The response will be a JSON object with each configured feed as a key. The corre
 
 ```json
 {
-  "herald": [
+  "rss": [
     {
       "title": "Article 1 Title",
       "link": "https://www.nzherald.co.nz/article1",
@@ -67,8 +67,6 @@ The response will be a JSON object with each configured feed as a key. The corre
       "image": "https://img.shields.io/badge/H-8A2BE2"
     },
     ...
-  ],
-  "stuff": [
     {
       "title": "Article 1 Title",
       "link": "https://www.stuff.co.nz/article1",
