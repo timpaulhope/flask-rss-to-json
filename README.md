@@ -11,6 +11,7 @@ Make sure you have the following libraries installed:
 - xmltodict
 - requests-html
 - PyYAML
+- apscheduler
 
 You can install these libraries using `pip`:
 
