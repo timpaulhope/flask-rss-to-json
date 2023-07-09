@@ -1,6 +1,6 @@
-# RSS Feed API
+# RSS Feed Aggregator
 
-This is a simple Flask API that fetches and retrieves RSS feed data from different sources. It utilizes the `flask` and `flask_restful` libraries to create an API endpoint that returns JSON data containing the latest articles from configured RSS feeds.
+This is a Flask API that reads RSS feeds from a YAML configuration file and serves a JSON endpoint. The API returns the title, link, and an image for the first n results of each feed.
 
 ## Prerequisites
 
@@ -10,36 +10,47 @@ Make sure you have the following libraries installed:
 - Flask-RESTful
 - xmltodict
 - requests-html
+- PyYAML
 
 You can install these libraries using `pip`:
 
 ```
-pip install flask flask-restful xmltodict requests-html
+pip install flask flask-restful xmltodict requests-html pyyaml apscheduler
 ```
+
+## Configuration
+
+1. Open the `config.yaml` file located in the same directory as the script.
+
+2. Configure the `target_feeds` section with the RSS feed sources you want to fetch. Each feed should have a unique key and include the `feed_url` and `image` attributes.
+
+3. Set the `n_results` value to specify the number of results you want to retrieve from each feed.
+
+4. Optionally, modify the `port` value to set a custom port number for the API (default is 5000).
+
+5. Save the modifications.
 
 ## Usage
 
-1. Open the script file (`flask-rss-to-json.py`) in a text editor.
+1. Open the script file (`app.py`) in a text editor.
 
-2. Modify the `targetfeeds` dictionary to configure the RSS feed sources and their corresponding URLs and images. You can add or remove sources as needed.
+2. Ensure that the `config.yaml` file is in the same directory as `app.py`.
 
-3. Customize the `nResults` variable to specify the number of articles you want to retrieve from each feed.
-
-4. Save the modifications.
-
-5. Run the script by executing the following command in your terminal:
+3. Run the script by executing the following command in your terminal:
 
 ```
-python3 flask-rss-to-json.py
+python app.py
 ```
 
-6. The API will start running on `http://localhost:5000/`.
+4. The API will start running on `http://localhost:<port>/`.
 
 ## API Endpoint
 
-- **GET `/`**: Returns JSON data containing the latest articles from the configured RSS feeds.
+- **GET `/`**: Returns a JSON object containing the first n results of each configured RSS feed. The JSON object is structured with each feed as a key and the corresponding results as a list of objects containing the title, link, and image.
 
 ## Example Response
+
+The response will be a JSON object with each configured feed as a key. The corresponding value will be a list of objects, where each object represents an article and includes the title, link, and image attributes.
 
 ```json
 {
@@ -72,16 +83,14 @@ python3 flask-rss-to-json.py
 }
 ```
 
-The response will contain a dictionary with each configured source as a key. The corresponding value will be a list of articles, where each article contains a title, link, and image.
-
-**Note:** The number of articles returned will be based on the configured `nResults` variable.
+The number of results returned will be based on the configured `n_results` value.
 
 ## Customization
 
-- You can modify the port number and host address in the `app.run()` statement to match your desired configuration.
+- You can modify the `port` value in the `config.yaml` file to set a custom port number for the API.
 
 - Feel free to customize other parts of the script as needed to meet your requirements.
 
 ---
 
-That's it! You now have a Flask API for fetching and retrieving RSS feed data from different sources.
+That's it! You now have a Flask API that reads RSS feeds from a configuration file and serves the data as JSON.

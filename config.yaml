@@ -1,0 +1,9 @@
+n_results: 5
+port: 5000
+target_feeds:
+  herald:
+    feed_url: "https://www.nzherald.co.nz/arc/outboundfeeds/rss/curated/78/?outputType=xml&_website=nzh"
+    image: "https://img.shields.io/badge/H-8A2BE2"
+  stuff:
+    feed_url: "https://www.stuff.co.nz/rss"
+    image: "https://img.shields.io/badge/S-FF2BE2"
